@@ -139,14 +139,27 @@ class figure:
                                       [0, 0, 0, 0, 0],
                                       [0, 0, 0, 0, 0]]
 
-class game_field:
+class game_field():
     '''
-    Поле, на котором идет игра + данные о текущей игре (текущая заполненность, очки, уровень)
+    Игровое поле + поле с информацией (очки, уровень, следующая фигура)
     '''
 
-    def __int__(self):
-        score = 0
-        field = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    def __init__(self, x0, y0, game_field_width, game_field_height, info_field_width, info_field_height):
+        """
+        x0, y0 - координаты левого верхнего угла игрового поля.
+        game_field_width, game_field_height - ширина и высота игрового поля.
+        info_field_width, info_field_height
+
+        """
+        self.x0 = x0
+        self.y0 = y0
+        self.game_field_width = game_field_width
+        self.game_field_height = game_field_height
+        self.info_field_width = info_field_width
+        self.info_field_height = info_field_height
+
+        self.score = 0
+        self.field = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -169,14 +182,6 @@ class game_field:
         """
         Cписок клеток. 0 - пустая клетка. Другая цифра (в зависимости от цвета) - заполненная клетка.
         """
-        x0 = 0
-        y0 = 0
-        """
-        Координаты левого верхнего угла поля
-        """
-        width = 400
-        height = 800
-
         def draw(self, figure):
             '''
             figure - текущая движущаяся фигура
@@ -199,3 +204,6 @@ print(f1.coordinates)
 f1.rotate_clockwise()
 print(f1.coordinates)
 '''
+g1 = game_field(100, 100, 400, 800, 100, 100)
+
+print(g1.x0)
