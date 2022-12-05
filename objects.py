@@ -99,11 +99,12 @@ class figure:
         '''
         self.y += 1
 
+
     def move_left(self):
         """
-        Движение влева на одну клетку.
-        :return:
+        Движение влево на одну клетку.
         """
+
         self.x -= 1
 
     def move_right(self):
@@ -132,7 +133,7 @@ class figure:
             for j in range(5):
                 if self.coordinates[i][j] == 1:
                     self.supporting_coordinates[4-j][i] = 1
-        self.coordinates =  self.supporting_coordinates
+        self.coordinates = self.supporting_coordinates
         self.supporting_coordinates = [[0, 0, 0, 0, 0],
                                       [0, 0, 0, 0, 0],
                                       [0, 0, 0, 0, 0],
