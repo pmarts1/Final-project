@@ -1,5 +1,6 @@
 from random import choice
 import random
+import copy
 
 screen_width = 1920
 screen_height = 1080
@@ -61,10 +62,13 @@ tetromino_list = [tT, jT, lT, sT, zT, iT, oT]
 Создание всех типов фигур.
 '''
 
+
+
 class figure:
     '''
     Фигуры, состоящие из 4-х квадратиков.
     '''
+
     def __init__(self):
         self.x = 0
         self.y = 5
@@ -93,24 +97,52 @@ class figure:
         '''
         Создает новый тетрамино сверху экрана со случайным выбором новой формы и цвета
         '''
-    def move_down(self):
+    def check_movement_possibility(self, field):
+        for i in range(5):
+            for j in range(5):
+                if self.supporting_coordinates[i][j] == 1 and (self.x + j - 2 > 9 or self.x + j - 2 < 0 or self.y + i - 2 > 19 or field.static_field[self.y + i - 2][self.x + j - 2] != 0):
+                    return False
+        return True
+    def move_down(self, field):
         '''
         Движение вниз на одну клетку.
         '''
-        self.y += 1
-
+        self.supporting_coordinates = self.coordinates
+        self.y +=1
+        if self.check_movement_possibility(field) == False:
+            self.y -= 1
+        self.supporting_coordinates = [[0, 0, 0, 0, 0],
+                                       [0, 0, 0, 0, 0],
+                                       [0, 0, 0, 0, 0],
+                                       [0, 0, 0, 0, 0],
+                                       [0, 0, 0, 0, 0]]
 
     def move_left(self):
         """
         Движение влево на одну клетку.
         """
-
+        self.supporting_coordinates = self.coordinates
         self.x -= 1
+        if self.check_movement_possibility(field) == False:
+            self.x += 1
+        self.supporting_coordinates = [[0, 0, 0, 0, 0],
+                                       [0, 0, 0, 0, 0],
+                                       [0, 0, 0, 0, 0],
+                                       [0, 0, 0, 0, 0],
+                                       [0, 0, 0, 0, 0]]
 
     def move_right(self):
+        self.supporting_coordinates = self.coordinates
         self.x += 1
+        if self.check_movement_possibility(field) == False:
+            self.x -= 1
+        self.supporting_coordinates = [[0, 0, 0, 0, 0],
+                                       [0, 0, 0, 0, 0],
+                                       [0, 0, 0, 0, 0],
+                                       [0, 0, 0, 0, 0],
+                                       [0, 0, 0, 0, 0]]
 
-    def rotate_clockwise(self):
+    def rotate_clockwise(self, field):
         """
         Обновляет список, отвечающий за форму тетрамино (без привязки к координате) в соотвествии с поворотом по часовой стрелке.
         """
@@ -118,14 +150,15 @@ class figure:
             for j in range(5):
                 if self.coordinates[i][j] == 1:
                     self.supporting_coordinates[j][4 - i] = 1
-        self.coordinates = self.supporting_coordinates
-        self.supporting_coordinates = [[0, 0, 0, 0, 0],
-                                       [0, 0, 0, 0, 0],
-                                       [0, 0, 0, 0, 0],
-                                       [0, 0, 0, 0, 0],
-                                       [0, 0, 0, 0, 0]]
+        if self.check_movement_possibility(field) == True:
+            self.coordinates = self.supporting_coordinates
+            self.supporting_coordinates = [[0, 0, 0, 0, 0],
+                                           [0, 0, 0, 0, 0],
+                                           [0, 0, 0, 0, 0],
+                                           [0, 0, 0, 0, 0],
+                                           [0, 0, 0, 0, 0]]
 
-    def rotate_counterclockwise(self):
+    def rotate_counterclockwise(self, field):
         """
         Обновляет список, отвечающий за форму тетрамино (без привязки к координате) в соотвествии с поворотом против часовой стрелки.
         """
@@ -133,12 +166,13 @@ class figure:
             for j in range(5):
                 if self.coordinates[i][j] == 1:
                     self.supporting_coordinates[4-j][i] = 1
-        self.coordinates = self.supporting_coordinates
-        self.supporting_coordinates = [[0, 0, 0, 0, 0],
-                                      [0, 0, 0, 0, 0],
-                                      [0, 0, 0, 0, 0],
-                                      [0, 0, 0, 0, 0],
-                                      [0, 0, 0, 0, 0]]
+        if self.check_movement_possibility(field) == True:
+            self.coordinates = self.supporting_coordinates
+            self.supporting_coordinates = [[0, 0, 0, 0, 0],
+                                           [0, 0, 0, 0, 0],
+                                           [0, 0, 0, 0, 0],
+                                           [0, 0, 0, 0, 0],
+                                           [0, 0, 0, 0, 0]]
 
 class game_field():
     '''
@@ -167,12 +201,16 @@ class game_field():
         """
         Cписок клеток. 0 - пустая клетка. Другая цифра (в зависимости от цвета) - заполненная клетка.
         """
-        def draw(self, figure):
-            '''
-            figure - текущая движущаяся фигура
-            Рисует ячейки из field и фигуру, которая движется.
-            '''
-            pass
+    def update_field_for_drawing(self, moving_figure):
+        self.field = copy.deepcopy(self.static_field)
+        for i in range(5):
+            for j in range(5):
+                self.field[moving_figure.y + i - 2][moving_figure.x + j - 2] = moving_figure.coordinates[i][j]
+    def draw(self):
+        '''
+        Рисует ячейки из field (движущаяся фигура должна быть уже отображена в field)
+        '''
+        pass
 
     def burn_field_rows(self):
         '''
@@ -180,15 +218,7 @@ class game_field():
         '''
         pass
 
-'''
+"""
 f1 = figure()
-f1.new_figure()
-print(f1.coordinates)
-f1.rotate_clockwise()
-print(f1.coordinates)
-f1.rotate_clockwise()
-print(f1.coordinates)
-'''
 g1 = game_field(100, 100, 400, 800, 100, 100)
-
-print(g1.x0)
+"""
