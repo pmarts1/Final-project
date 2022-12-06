@@ -189,7 +189,7 @@ class game_field():
         self.x0 = x0
         self.y0 = y0
         self.game_field_width = game_field_width
-        self.game_field_height = game_field_height * 2
+        self.game_field_height = game_field_height *2
         self.info_field_width = info_field_width
         self.info_field_height = info_field_height
 
