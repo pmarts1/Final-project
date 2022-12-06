@@ -1,6 +1,7 @@
 from random import choice
 import random
 import copy
+import pygame
 
 screen_width = 1920
 screen_height = 1080
