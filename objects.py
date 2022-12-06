@@ -179,7 +179,7 @@ class game_field():
     Игровое поле + поле с информацией (очки, уровень, следующая фигура)
     '''
 
-    def __init__(self, x0, y0, game_field_width, game_field_height, info_field_width, info_field_height):
+    def __init__(self, x0, y0, game_field_width, info_field_width, info_field_height):
         """
         x0, y0 - координаты левого верхнего угла игрового поля.
         game_field_width, game_field_height - ширина и высота игрового поля.
@@ -189,7 +189,7 @@ class game_field():
         self.x0 = x0
         self.y0 = y0
         self.game_field_width = game_field_width
-        self.game_field_height = game_field_height
+        self.game_field_height = game_field_height * 2
         self.info_field_width = info_field_width
         self.info_field_height = info_field_height
 
