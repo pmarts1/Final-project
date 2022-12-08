@@ -213,9 +213,23 @@ class game_field():
         '''
         pass
 
-    def burn_field_rows(self):
+    def burn_filled_rows(self):
+        rows_to_burn = []
+        row_fullness_check = True
         '''
         Очищает полностью заполненные ряды и добавляет очки за них.
         '''
-        pass
+        for i in range(20):
+            for j in range(10):
+                if self.field[i][j] == 0:
+                    row_fullness_check = False
+                continue
+            if row_fullness_check == True:
+                rows_to_burn.append(i)
+                for j in range(10):
+                    self.field[i][j] = 5
+
+
+
+
 
