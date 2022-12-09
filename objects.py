@@ -118,7 +118,7 @@ class figure:
                                        [0, 0, 0, 0, 0],
                                        [0, 0, 0, 0, 0]]
 
-    def move_left(self):
+    def move_left(self, field):
         """
         Движение влево на одну клетку.
         """
@@ -132,7 +132,7 @@ class figure:
                                        [0, 0, 0, 0, 0],
                                        [0, 0, 0, 0, 0]]
 
-    def move_right(self):
+    def move_right(self, field):
         self.supporting_coordinates = self.coordinates
         self.x += 1
         if self.check_movement_possibility(field) == False:
@@ -206,7 +206,8 @@ class game_field():
         self.field = copy.deepcopy(self.static_field)
         for i in range(5):
             for j in range(5):
-                self.field[moving_figure.y + i - 2][moving_figure.x + j - 2] = moving_figure.coordinates[i][j]
+                if moving_figure.y + i - 2 < 19 and moving_figure.x + j - 2 < 10:
+                    self.field[moving_figure.y + i - 2][moving_figure.x + j - 2] = moving_figure.coordinates[i][j]
     def draw(self):
         '''
         Рисует ячейки из field (движущаяся фигура должна быть уже отображена в field)
