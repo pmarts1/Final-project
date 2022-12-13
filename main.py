@@ -27,7 +27,9 @@ moving_left = 0
 moving_right_start = 0
 moving_right = 0
 moving_down_start = 0
+moving_down = 0
 def run_game(figure, field):
+    global moving_down
     global moving_down_start
     global moving_left
     global moving_left_start
@@ -77,6 +79,14 @@ def run_game(figure, field):
         figure.move_right(field)
         moving_right_start = frame
 
+    if moving_down == 1 and frame - moving_down_start == 16:
+        figure.move_down(field)
+        moving_down = 2
+        moving_down_start = frame
+    if moving_down == 2 and frame - moving_down_start == 6:
+        figure.move_down(field)
+        moving_down_start = frame
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             finished = True
@@ -92,6 +102,7 @@ def run_game(figure, field):
             if event.key == pygame.K_s:
                 figure.move_down(field)
                 moving_down_start = frame
+                moving_down = 1
             if event.key == pygame.K_q:
                 figure.rotate_counterclockwise(field)
             if event.key == pygame.K_e:
@@ -99,10 +110,10 @@ def run_game(figure, field):
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_a:
                 moving_left = 0
-
-        if event.type == pygame.KEYUP:
             if event.key == pygame.K_d:
                 moving_right = 0
+            if event.key == pygame.K_s:
+                moving_down = 0
 
         #print(moving_down_start - frame)
     #print(pygame.event.get())
@@ -132,8 +143,6 @@ pygame.quit()
 f1 = figure()
 f1.new_figure()
 g1 = game_field(100, 100, 400, 100, 100)
-#oldField = g1.static_field
-print(g1.game_field_height)
 while not finished:
     screen.fill(BLACK)
 
