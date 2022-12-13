@@ -15,8 +15,8 @@ GREEN = 0x00FF00
 BLACK = 0x000000
 GAME_COLORS = [BLACK, RED, BLUE, YELLOW, GREEN]
 
-screenWidth = 1000
-screenHeight = 1000
+screenWidth = 400
+screenHeight = 800
 screen = pygame.display.set_mode((screenWidth, screenHeight))
 
 '''

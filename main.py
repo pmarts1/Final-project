@@ -142,7 +142,7 @@ pygame.quit()
 '''
 f1 = figure()
 f1.new_figure()
-g1 = game_field(100, 100, 400, 100, 100)
+g1 = game_field(0, 0, 400, 100, 100)
 while not finished:
     screen.fill(BLACK)
 
