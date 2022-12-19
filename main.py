@@ -22,37 +22,33 @@ level_table = [48, 43, 38, 33, 28, 23, 18, 13, 8, 6, 5, 5, 5, 4, 4, 4, 3, 3, 3, 
 frame = 0
 
 finished = False
+'''
 moving_left_start = 0
 moving_left = 0
 moving_right_start = 0
 moving_right = 0
 moving_down_start = 0
-moving_down = 0
+moving_down = 0'''
 def run_game(figure, field):
-    global moving_down
-    global moving_down_start
-    global moving_left
-    global moving_left_start
-    global moving_right
-    global moving_right_start
+
     global finished
     global frame
     frame += 1
     clock.tick(FPS)
 
-    if frame - moving_down_start == level_table[field.level]:
+    if frame - figure.moving_down_start == level_table[field.level]:
         yold = figure.y
         figure.move_down(field)
         if figure.y != yold:
-            moving_down_start = frame
+            figure.moving_down_start = frame
         else:
             field.update_static_field(figure)
             figure.new_figure()
-            moving_left_start = 0
-            moving_left = 0
-            moving_right_start = 0
-            moving_right = 0
-            moving_down_start = frame
+            figure.moving_left_start = 0
+            figure.moving_left = 0
+            figure.moving_right_start = 0
+            figure.moving_right = 0
+            figure.moving_down_start = frame
             field.burn_filled_rows()
 
 
@@ -71,37 +67,37 @@ def run_game(figure, field):
             moving_down_start = frame
             field.burn_filled_rows()'''
 
-    if moving_left == 1 and frame - moving_left_start == 16:
+    if figure.moving_left == 1 and frame - figure.moving_left_start == 16:
         figure.move_left(field)
-        moving_left = 2
-        moving_left_start = frame
-    if moving_left == 2 and frame - moving_left_start == 6:
+        figure.moving_left = 2
+        figure.moving_left_start = frame
+    if figure.moving_left == 2 and frame - figure.moving_left_start == 6:
         figure.move_left(field)
         moving_left_start = frame
 
-    if moving_right == 1 and frame - moving_right_start == 16:
+    if figure.moving_right == 1 and frame - figure.moving_right_start == 16:
         figure.move_right(field)
-        moving_right = 2
-        moving_right_start = frame
-    if moving_right == 2 and frame - moving_right_start == 6:
+        figure.moving_right = 2
+        figure.moving_right_start = frame
+    if figure.moving_right == 2 and frame - figure.moving_right_start == 6:
         figure.move_right(field)
-        moving_right_start = frame
+        figure.moving_right_start = frame
 
-    if moving_down == 1 and frame - moving_down_start == 16:
+    if figure.moving_down == 1 and frame - figure.moving_down_start == 16:
         yold = figure.y
         figure.move_down(field)
         if figure.y != yold:
-            moving_down_start = frame
+            figure.moving_down_start = frame
             field.score += 1
-        moving_down = 2
-        moving_down_start = frame
-    if moving_down == 2 and frame - moving_down_start == 6:
+        figure.moving_down = 2
+        figure.moving_down_start = frame
+    if figure.moving_down == 2 and frame - figure.moving_down_start == 6:
         yold = figure.y
         figure.move_down(field)
         if figure.y != yold:
-            moving_down_start = frame
+            figure.moving_down_start = frame
             field.score += 1
-        moving_down_start = frame
+        figure.moving_down_start = frame
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -109,29 +105,29 @@ def run_game(figure, field):
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
                 figure.move_left(field)
-                moving_left_start = frame
-                moving_left = 1
+                figure.moving_left_start = frame
+                figure.moving_left = 1
             if event.key == pygame.K_RIGHT:
                 figure.move_right(field)
-                moving_right_start = frame
-                moving_right = 1
+                figure.moving_right_start = frame
+                figure.moving_right = 1
             if event.key == pygame.K_s:
                 yold = figure.y
                 figure.move_down(field)
                 if figure.y != yold:
                     field.score += 1
-                moving_down = 1
+                figure.moving_down = 1
             if event.key == pygame.K_q:
                 figure.rotate_counterclockwise(field)
             if event.key == pygame.K_e:
                 figure.rotate_clockwise(field)
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT:
-                moving_left = 0
+                figure.moving_left = 0
             if event.key == pygame.K_RIGHT:
-                moving_right = 0
+                figure.moving_right = 0
             if event.key == pygame.K_s:
-                moving_down = 0
+                figure.moving_down = 0
 
         #print(moving_down_start - frame)
     #print(pygame.event.get())

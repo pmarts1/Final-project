@@ -80,6 +80,12 @@ class figure:
     def __init__(self):
         self.x = 0
         self.y = 5
+        self.moving_left_start = 0
+        self.moving_left = 0
+        self.moving_right_start = 0
+        self.moving_right = 0
+        self.moving_down_start = 0
+        self.moving_down = 0
         '''
         Координаты цетра вращения фигуры...
         '''
@@ -103,6 +109,12 @@ class figure:
         self.y = 0
         self.coordinates = choice(tetromino_list)
         self.color = random.randint(1, 4)
+        self.moving_left_start = 0
+        self.moving_left = 0
+        self.moving_right_start = 0
+        self.moving_right = 0
+        self.moving_down_start = 0
+        self.moving_down = 0
         '''
         Создает новый тетрамино сверху экрана со случайным выбором новой формы и цвета
         '''
