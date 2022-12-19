@@ -11,7 +11,7 @@ BLACK = 0x000000
 FPS = 60
 pygame.init()
 
-
+font = pygame.font.Font('freesansbold.ttf', 48)
 
 clock = pygame.time.Clock()
 
