@@ -13,12 +13,14 @@ BLUE = 0x0000FF
 YELLOW = 0xFFC91F
 GREEN = 0x00FF00
 BLACK = 0x000000
+GREY = 0xc0c0c0
 GAME_COLORS = [BLACK, RED, BLUE, YELLOW, GREEN]
 
 screenWidth = 400
 screenHeight = 800
 screen = pygame.display.set_mode((screenWidth, screenHeight))
 
+top_score = 0
 '''
 Цвета, случайно выбирающиеся при появлении новой фигуры
 '''
@@ -191,7 +193,7 @@ class game_field():
     Игровое поле + поле с информацией (очки, уровень, следующая фигура)
     '''
 
-    def __init__(self, x0, y0, game_field_width, info_field_width, info_field_height):
+    def __init__(self, x0, y0, game_field_width):
         """
         x0, y0 - координаты левого верхнего угла игрового поля.
         game_field_width, game_field_height - ширина и высота игрового поля.
@@ -202,8 +204,8 @@ class game_field():
         self.y0 = y0
         self.game_field_width = copy.deepcopy(game_field_width)
         self.game_field_height = copy.deepcopy(game_field_width) * 2
-        self.info_field_width = info_field_width
-        self.info_field_height = info_field_height
+        self.lines = 0
+        self.level = 5
 
         self.score = 0
 
@@ -218,7 +220,7 @@ class game_field():
         self.field = copy.deepcopy(self.static_field)
         for i in range(5):
             for j in range(5):
-                if moving_figure.y + i - 2 < 20 and moving_figure.x + j - 2 < 10 and moving_figure.coordinates[i][j] != 0:
+                if moving_figure.y + i - 2 < 20 and moving_figure.x + j - 2 < 10 and moving_figure.y + i - 2 >= 0 and moving_figure.coordinates[i][j] != 0:
                     self.field[moving_figure.y + i - 2][moving_figure.x + j - 2] = moving_figure.coordinates[i][j] * moving_figure.color
 
     def draw(self):
@@ -249,7 +251,18 @@ class game_field():
             for i in range(rows_to_burn[0]):
                 self.field[rows_to_burn[len(rows_to_burn) - 1] - i] = copy.deepcopy(self.field[rows_to_burn[len(rows_to_burn) - 1] - len(rows_to_burn) - i])
             self.static_field = copy.deepcopy(self.field)
-
+        self.lines += len(rows_to_burn)
+        if len(rows_to_burn) == 1:
+            self.score += 40*(self.level + 1)
+        if len(rows_to_burn) == 2:
+            self.score += 100*(self.level + 1)
+        if len(rows_to_burn) == 3:
+            self.score += 300 * (self.level + 1)
+        if len(rows_to_burn) == 4:
+            self.score += 1200*(self.level + 1)
+        print(self.score)
+        print(self.lines)
+        self.level = self.lines // 10 + 5
     def update_static_field(self, moving_figure):
         self.update_field_for_drawing(moving_figure)
         self.static_field = copy.deepcopy(self.field)
