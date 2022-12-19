@@ -242,6 +242,10 @@ class game_field():
                                  pygame.Rect(self.x0 + self.game_field_width / 10 * j,
                                              self.y0 + self.game_field_height / 20 * i, self.game_field_width / 10,
                                              self.game_field_height / 20))
+                pygame.draw.rect(screen, GREY,
+                                 pygame.Rect(self.x0 + self.game_field_width / 10 * j,
+                                             self.y0 + self.game_field_height / 20 * i, self.game_field_width / 10,
+                                             self.game_field_height / 20), 1)
 
     def burn_filled_rows(self):
         rows_to_burn = []
