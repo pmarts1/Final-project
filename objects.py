@@ -3,6 +3,7 @@ import random
 import copy
 import pygame
 
+
 screen_width = 1920
 screen_height = 1080
 game_field_height = 20
