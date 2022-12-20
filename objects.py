@@ -222,7 +222,7 @@ class game_field():
         self.x0 = x0
         self.y0 = y0
         self.game_field_width = copy.deepcopy(game_field_width)
-        self.game_field_height = copy.deepcopy(game_field_width) * 2
+        self.game_field_height = game_field_width * 2
         self.lines = 0
         self.level = 5
         self.game_over = False
