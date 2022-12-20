@@ -252,7 +252,7 @@ f2 = figure()
 f2.new_figure()
 g2 = game_field(900, 0, 500)'''
 #enter_name()
-option = 2
+option = 0
 
 frame = 0
 gameOver = False
@@ -277,6 +277,7 @@ def vyvod():
     screen.blit(follow6, (800, 100))
     for i in range(10):
         screen.blit(f2.render(str(records[i][0]), 1, (255, 255, 255)), (200, 150 + 50*i))
+    pygame.display.update()
 
 while not finished:
     if option == 0:
@@ -336,7 +337,9 @@ while not finished:
                         gameOver = True
             pygame.display.update()
         option = 0
-
+    if option == 3:
+        screen.fill((BLACK))
+        vyvod()
     if option == 4:
         finished = True
 #def one_player()
