@@ -262,12 +262,12 @@ class game_field():
         for i in range(5):
             for j in range(5):
                 pygame.draw.rect(screen, GAME_COLORS[figure.next_coordinates[i][j]],
-                                 pygame.Rect(self.game_field_width + self.x0 + 100 + self.game_field_width / 10 * j,
-                                             self.y0 + 400 + self.game_field_height / 20 * i, self.game_field_width / 10,
+                                 pygame.Rect(self.game_field_width + self.x0 + 85 + self.game_field_width / 10 * j,
+                                             self.y0 + 420 + self.game_field_height / 20 * i, self.game_field_width / 10,
                                              self.game_field_height / 20))
                 pygame.draw.rect(screen, GREY,
-                                 pygame.Rect(self.game_field_width + self.x0 + 100 + self.game_field_width / 10 * j,
-                                             self.y0 + 400 + self.game_field_height / 20 * i, self.game_field_width / 10,
+                                 pygame.Rect(self.game_field_width + self.x0 + 85 + self.game_field_width / 10 * j,
+                                             self.y0 + 420 + self.game_field_height / 20 * i, self.game_field_width / 10,
                                              self.game_field_height / 20), 1)
         follow3 = f1.render("LEVEL", 1, (255, 255, 255))
         screen.blit(follow3, (self.game_field_width + self.x0 + 100, 700))
