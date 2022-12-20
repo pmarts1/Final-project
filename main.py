@@ -207,7 +207,7 @@ g1 = game_field(0, 0, 500)
 f2 = figure()
 f2.new_figure()
 g2 = game_field(900, 0, 500)'''
-enter_name()
+#enter_name()
 option = 2
 
 frame = 0
