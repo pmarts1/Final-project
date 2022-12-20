@@ -319,6 +319,11 @@ while not finished:
         '''
         screen.fill((BLACK))
         vyvod()
+        flag = False
+        while not flag:
+            for event in pygame.event.get():
+                if event.type == pygame.KEYDOWN:
+                    flag = True
+        option = 0
     if option == 4:
         finished = True
-
