@@ -8,10 +8,10 @@ from objects import screen
 gameFieldHeight = 20
 gameFieldWidth = 10
 BLACK = 0x000000
-FPS = 60
+FPS = 30
 pygame.init()
 
-font = pygame.font.Font('freesansbold.ttf', 48)
+a = []
 
 clock = pygame.time.Clock()
 
@@ -29,12 +29,17 @@ moving_right_start = 0
 moving_right = 0
 moving_down_start = 0
 moving_down = 0'''
-def run_game(figure, field):
+def run_game(figure, field, left, right, down, clockwise, counterclockwise):
 
     global finished
     global frame
-    frame += 1
-    clock.tick(FPS)
+    #frame += 1
+    #clock.tick(FPS)
+
+    #screen.fill(BLACK)
+    field.draw()
+    #pygame.display.update()
+
 
     if frame - figure.moving_down_start == level_table[field.level]:
         yold = figure.y
@@ -99,36 +104,36 @@ def run_game(figure, field):
             field.score += 1
         figure.moving_down_start = frame
 
-    for event in pygame.event.get():
+    for event in a:
         if event.type == pygame.QUIT:
             finished = True
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_LEFT:
+            if event.key == left:
                 figure.move_left(field)
                 figure.moving_left_start = frame
                 figure.moving_left = 1
-            if event.key == pygame.K_RIGHT:
+            if event.key == right:
                 figure.move_right(field)
                 figure.moving_right_start = frame
                 figure.moving_right = 1
-            if event.key == pygame.K_s:
+            if event.key == down:
                 yold = figure.y
                 figure.move_down(field)
                 if figure.y != yold:
                     field.score += 1
                 figure.moving_down = 1
-            if event.key == pygame.K_q:
+            if event.key == counterclockwise:
                 figure.rotate_counterclockwise(field)
-            if event.key == pygame.K_e:
+            if event.key == clockwise:
                 figure.rotate_clockwise(field)
         if event.type == pygame.KEYUP:
-            if event.key == pygame.K_LEFT:
+            if event.key == left:
                 figure.moving_left = 0
-            if event.key == pygame.K_RIGHT:
+            if event.key == right:
                 figure.moving_right = 0
-            if event.key == pygame.K_s:
+            if event.key == down:
                 figure.moving_down = 0
-
+    field.update_field_for_drawing(figure)
         #print(moving_down_start - frame)
     #print(pygame.event.get())
 
@@ -156,19 +161,17 @@ pygame.quit()
 '''
 f1 = figure()
 f1.new_figure()
-g1 = game_field(0, 0, 400)
+g1 = game_field(100, 0, 300)
+f2 = figure()
+f2.new_figure()
+g2 = game_field(500, 0, 300)
 while not finished:
+    frame += 1
+    clock.tick(FPS)
     screen.fill(BLACK)
-    g1.draw()
-    pygame.display.update()
-    run_game(f1, g1)
-    g1.update_field_for_drawing(f1)
+    a = pygame.event.get()
+    run_game(f2, g2, pygame.K_j, pygame.K_l, pygame.K_k, pygame.K_o, pygame.K_u)
+    run_game(f1, g1, pygame.K_a, pygame.K_d, pygame.K_s, pygame.K_e, pygame.K_q)
+    #run_game(f2, g2)
 
-    #print(g1.field)
-    #if oldField != g1.static_field:
-    #print(g1.field)
-    #oldField = g1.static_field
-    #clock.tick(1)
-    #print(pygame.event.get())
-    #for i in pygame.event.get():
-    #print(pygame.event.get())
+    pygame.display.update()
