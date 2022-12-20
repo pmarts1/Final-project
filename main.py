@@ -224,6 +224,7 @@ def menu():
     print('ffffff')
 
 
+
 '''while not finished:
     screen.fill(BLACK)
     g1.draw()
