@@ -223,6 +223,7 @@ def menu():
     return mode
     print('ffffff')
 
+
 '''while not finished:
     screen.fill(BLACK)
     g1.draw()
