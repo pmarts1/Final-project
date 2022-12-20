@@ -123,6 +123,7 @@ class figure:
         Создает новый тетрамино сверху экрана со случайным выбором новой формы и цвета
         '''
 
+
     def check_movement_possibility(self, field):
         """
         Проверяет, может ли фигурка совершить перемещение на поле
@@ -134,6 +135,7 @@ class figure:
                         field.static_field[self.y + i - 2][self.x + j - 2] != 0):
                     return False
         return True
+
 
     def move_down(self, field):
         '''
@@ -149,6 +151,7 @@ class figure:
                                        [0, 0, 0, 0, 0],
                                        [0, 0, 0, 0, 0]]
 
+
     def move_left(self, field):
         """
         Перемещаяет фигуру влево на своем поле
@@ -163,6 +166,7 @@ class figure:
                                        [0, 0, 0, 0, 0],
                                        [0, 0, 0, 0, 0]]
 
+
     def move_right(self, field):
         self.supporting_coordinates = self.coordinates
         self.x += 1
@@ -173,6 +177,7 @@ class figure:
                                        [0, 0, 0, 0, 0],
                                        [0, 0, 0, 0, 0],
                                        [0, 0, 0, 0, 0]]
+
 
     def rotate_clockwise(self, field):
         """
@@ -189,6 +194,7 @@ class figure:
                                            [0, 0, 0, 0, 0],
                                            [0, 0, 0, 0, 0],
                                            [0, 0, 0, 0, 0]]
+
 
     def rotate_counterclockwise(self, field):
         """
@@ -242,6 +248,7 @@ class game_field():
             for j in range(5):
                 if moving_figure.y + i - 2 < 20 and moving_figure.x + j - 2 < 10 and moving_figure.y + i - 2 >= 0 and moving_figure.coordinates[i][j] != 0:
                     self.field[moving_figure.y + i - 2][moving_figure.x + j - 2] = moving_figure.coordinates[i][j] * moving_figure.color
+
 
     def draw(self, figure):
         '''
@@ -312,6 +319,8 @@ class game_field():
             self.score += 1200*(self.level + 1)
 
         self.level = self.lines // 10 + 5
+
+
     def update_static_field(self, moving_figure):
         '''
         Фиксирует приземление фигуры
