@@ -2,7 +2,6 @@ from random import choice
 import random
 import copy
 import pygame
-#from pygame import font
 
 screen_width = 1920
 screen_height = 1080
@@ -125,6 +124,9 @@ class figure:
         '''
 
     def check_movement_possibility(self, field):
+        """
+        Проверяет, может ли фигурка совершить перемещение на поле
+        """
         for i in range(5):
             for j in range(5):
                 if self.supporting_coordinates[i][j] == 1 and (
@@ -149,7 +151,7 @@ class figure:
 
     def move_left(self, field):
         """
-        Движение влево на одну клетку.
+        Перемещаяет фигуру влево на своем поле
         """
         self.supporting_coordinates = self.coordinates
         self.x -= 1
@@ -222,7 +224,7 @@ class game_field():
         self.game_field_width = copy.deepcopy(game_field_width)
         self.game_field_height = copy.deepcopy(game_field_width) * 2
         self.lines = 0
-        self.level = 29
+        self.level = 5
         self.game_over = False
         self.score = 0
 
@@ -242,6 +244,9 @@ class game_field():
                     self.field[moving_figure.y + i - 2][moving_figure.x + j - 2] = moving_figure.coordinates[i][j] * moving_figure.color
 
     def draw(self, figure):
+        '''
+        Функция отрисовки во время игры. Рисует поле, слелующую фигуру, текущий счет, уровень
+        '''
         for i in range(20):
             for j in range(10):
                 pygame.draw.rect(screen, GAME_COLORS[self.field[i][j]],
@@ -276,11 +281,12 @@ class game_field():
 
 
     def burn_filled_rows(self):
-        rows_to_burn = []
-        row_fullness_check = True
         '''
         Очищает полностью заполненные ряды и добавляет очки за них.
         '''
+        rows_to_burn = []
+        row_fullness_check = True
+
         for i in range(20):
             for j in range(10):
                 if self.field[i][j] == 0:
@@ -304,9 +310,11 @@ class game_field():
             self.score += 300 * (self.level + 1)
         if len(rows_to_burn) == 4:
             self.score += 1200*(self.level + 1)
-        print(self.score)
-        print(self.lines)
-        self.level = self.lines // 10 + 25
+
+        self.level = self.lines // 10 + 5
     def update_static_field(self, moving_figure):
+        '''
+        Фиксирует приземление фигуры
+        '''
         self.update_field_for_drawing(moving_figure)
         self.static_field = copy.deepcopy(self.field)
