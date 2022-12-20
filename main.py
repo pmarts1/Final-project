@@ -270,6 +270,14 @@ for i in range(10):
     records[i][0] = int(records[i][0])
 lowest = records[9][0]
 
+def vyvod():
+    global records
+    f2 = pygame.font.Font(None, 24)
+    follow6 = f2.render('POT', 1, (255, 255, 255))
+    screen.blit(follow6, (800, 100))
+    for i in range(10):
+        screen.blit(f2.render(str(records[i][0]), 1, (255, 255, 255)), (200, 150 + 50*i))
+
 while not finished:
     if option == 0:
         print('bbbbbbbbb')
