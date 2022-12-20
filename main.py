@@ -272,9 +272,9 @@ lowest = records[9][0]
 
 def vyvod():
     global records
-    f2 = pygame.font.Font(None, 24)
+    f2 = pygame.font.Font(None, 36)
     follow6 = f2.render('TOP RAITING', 1, (255, 255, 255))
-    screen.blit(follow6, (900, 100))
+    screen.blit(follow6, (830, 100))
     for i in range(10):
         screen.blit(f2.render(str(records[i][0]), 1, (255, 255, 255)), (800, 150 + 50*i))
         screen.blit(f2.render(str(records[i][1]), 1, (255, 255, 255)), (900, 150 + 50*i))
