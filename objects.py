@@ -241,7 +241,7 @@ class game_field():
                 if moving_figure.y + i - 2 < 20 and moving_figure.x + j - 2 < 10 and moving_figure.y + i - 2 >= 0 and moving_figure.coordinates[i][j] != 0:
                     self.field[moving_figure.y + i - 2][moving_figure.x + j - 2] = moving_figure.coordinates[i][j] * moving_figure.color
 
-    def draw(self):
+    def draw(self, figure):
         for i in range(20):
             for j in range(10):
                 pygame.draw.rect(screen, GAME_COLORS[self.field[i][j]],
@@ -262,7 +262,11 @@ class game_field():
         for i in range(5):
             for j in range(5):
                 pygame.draw.rect(screen, GREY,
-                                 pygame.Rect(self.game_field_width + self.x0 + 150 + self.game_field_width / 10 * j,
+                                 pygame.Rect(self.game_field_width + self.x0 + 100 + self.game_field_width / 10 * j,
+                                             self.y0 + 400 + self.game_field_height / 20 * i, self.game_field_width / 10,
+                                             self.game_field_height / 20), 1)
+                pygame.draw.rect(screen, GAME_COLORS[figure.next_coordinates[i][j]],
+                                 pygame.Rect(self.game_field_width + self.x0 + 100 + self.game_field_width / 10 * j,
                                              self.y0 + 400 + self.game_field_height / 20 * i, self.game_field_width / 10,
                                              self.game_field_height / 20), 1)
         follow3 = f1.render("LEVEL", 1, (255, 255, 255))
