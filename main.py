@@ -161,10 +161,10 @@ pygame.quit()
 '''
 f1 = figure()
 f1.new_figure()
-g1 = game_field(100, 0, 300)
+g1 = game_field(0, 0, 500)
 f2 = figure()
 f2.new_figure()
-g2 = game_field(500, 0, 300)
+g2 = game_field(900, 0, 500)
 while not finished:
     frame += 1
     clock.tick(FPS)

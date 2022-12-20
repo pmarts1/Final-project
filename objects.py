@@ -17,8 +17,8 @@ BLACK = 0x000000
 GREY = 0xc0c0c0
 GAME_COLORS = [BLACK, RED, BLUE, YELLOW, GREEN]
 
-screenWidth = 800
-screenHeight = 800
+screenWidth = 1800
+screenHeight = 1000
 screen = pygame.display.set_mode((screenWidth, screenHeight))
 
 top_score = 0
