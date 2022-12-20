@@ -87,6 +87,7 @@ class figure:
         self.moving_right = 0
         self.moving_down_start = 0
         self.moving_down = 0
+
         '''
         Координаты цетра вращения фигуры...
         '''
@@ -101,14 +102,17 @@ class figure:
                                        [0, 0, 0, 0, 0],
                                        [0, 0, 0, 0, 0],
                                        [0, 0, 0, 0, 0]]
+        self.next_coordinates = choice(tetromino_list)
         '''
         Список, описывающий текущий поворот фигуры. 0 - пустая клетка, 1 - заполненная
         '''
 
+
     def new_figure(self):
         self.x = 5
         self.y = 0
-        self.coordinates = choice(tetromino_list)
+        self.coordinates = self.next_coordinates
+        self.next_coordinates = choice(tetromino_list)
         self.color = random.randint(1, 4)
         self.moving_left_start = 0
         self.moving_left = 0
@@ -218,8 +222,8 @@ class game_field():
         self.game_field_width = copy.deepcopy(game_field_width)
         self.game_field_height = copy.deepcopy(game_field_width) * 2
         self.lines = 0
-        self.level = 5
-
+        self.level = 29
+        self.game_over = False
         self.score = 0
 
         self.field = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0] for i in range(20)]
@@ -228,6 +232,7 @@ class game_field():
         """
         Cписок клеток. 0 - пустая клетка. Другая цифра (в зависимости от цвета) - заполненная клетка.
         """
+
 
     def update_field_for_drawing(self, moving_figure):
         self.field = copy.deepcopy(self.static_field)
@@ -295,7 +300,7 @@ class game_field():
             self.score += 1200*(self.level + 1)
         print(self.score)
         print(self.lines)
-        self.level = self.lines // 10 + 5
+        self.level = self.lines // 10 + 25
     def update_static_field(self, moving_figure):
         self.update_field_for_drawing(moving_figure)
         self.static_field = copy.deepcopy(self.field)

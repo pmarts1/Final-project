@@ -134,11 +134,53 @@ def run_game(figure, field, left, right, down, clockwise, counterclockwise):
             if event.key == down:
                 figure.moving_down = 0
     field.update_field_for_drawing(figure)
+    if field.static_field[0] != [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]:
+        field.game_over = True
         #print(moving_down_start - frame)
     #print(pygame.event.get())
 
+def new_result(score, name):
+    f = open('records.txt', 'r')
+    records = []
+    for i in range(10):
+        records.append(f.readline().split())
+        records[i][0] = int(records[i][0])
+    for i in range(10):
+        print(records[i])
+    records.append([score, name])
+    for i in range(10):
+        for j in range(10):
+            if records[j][0] < records[j+1][0]:
+                h = records[j+1]
+                records[j+1] = records[j]
+                records[j] = h
+    for i in range(10):
+        print(records[i])
+    f = open('records.txt', 'w')
+    f.seek(0)
+    for i in range(10):
+        f.write(str(records[i][0]) + ' ' + records[i][1] + '\n')
+    f.close()
 
 
+def enter_name():
+    global finished
+    name = ''
+    flag = False
+    while not flag:
+        clock.tick(FPS)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                finished = True
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_BACKSPACE:
+                    name = name[:-1]
+                if event.key == pygame.K_RETURN:
+                    flag = True
+                else:
+                    name += event.unicode
+        print(name)
+    return name
 '''while not finished:
     screen.fill(BLACK)
     g1.draw()
@@ -159,19 +201,89 @@ def run_game(figure, field, left, right, down, clockwise, counterclockwise):
     clock.tick(1)
 pygame.quit()
 '''
+'''f1 = figure()
+f1.new_figure()
+g1 = game_field(0, 0, 500)
+f2 = figure()
+f2.new_figure()
+g2 = game_field(900, 0, 500)'''
+enter_name()
+option = 2
+
+frame = 0
+gameOver = False
 f1 = figure()
 f1.new_figure()
 g1 = game_field(0, 0, 500)
 f2 = figure()
 f2.new_figure()
 g2 = game_field(900, 0, 500)
-while not finished:
-    frame += 1
-    clock.tick(FPS)
-    screen.fill(BLACK)
-    a = pygame.event.get()
-    run_game(f2, g2, pygame.K_j, pygame.K_l, pygame.K_k, pygame.K_o, pygame.K_u)
-    run_game(f1, g1, pygame.K_a, pygame.K_d, pygame.K_s, pygame.K_e, pygame.K_q)
-    #run_game(f2, g2)
 
-    pygame.display.update()
+f = open('records.txt', 'r')
+records = []
+for i in range(10):
+    records.append(f.readline().split())
+    records[i][0] = int(records[i][0])
+lowest = records[9][0]
+
+while not finished:
+    if option == 0:
+        print('bbbbbbbbb')
+        #menu()
+        screen.fill((255, 255, 255))
+        pygame.display.update()
+        clock.tick(0.01)
+    #pass
+    if option == 1:
+        frame = 0
+        gameOver = False
+        f1 = figure()
+        f1.new_figure()
+        g1 = game_field(400, 0, 500)
+        while not g1.game_over and not finished:
+            frame += 1
+            clock.tick(FPS)
+            screen.fill(BLACK)
+            a = pygame.event.get()
+            run_game(f1, g1, pygame.K_a, pygame.K_d, pygame.K_s, pygame.K_e, pygame.K_q)
+            pygame.display.update()
+        screen.fill(BLACK)
+        if g1.score > lowest:
+            new_result(g1.score, enter_name())
+        option = 0
+
+    if option == 2:
+        frame = 0
+        gameOver = False
+        f1 = figure()
+        f1.new_figure()
+        g1 = game_field(0, 0, 500)
+        f2 = figure()
+        f2.new_figure()
+        g2 = game_field(900, 0, 500)
+        while not gameOver and not finished:
+            frame += 1
+            clock.tick(FPS)
+            screen.fill(BLACK)
+            a = pygame.event.get()
+            if g1.game_over == False:
+                run_game(f1, g1, pygame.K_a, pygame.K_d, pygame.K_s, pygame.K_e, pygame.K_q)
+            #else:
+
+            if g2.game_over == False:
+                run_game(f2, g2, pygame.K_j, pygame.K_l, pygame.K_k, pygame.K_o, pygame.K_u)
+            #else:
+            if g1.game_over and g2.game_over:
+                #clock.tick(1)
+                #gameOver = True
+                for event in a:
+                    if event.type == pygame.KEYDOWN:
+                        gameOver = True
+            pygame.display.update()
+        option = 0
+
+
+    if option == 4:
+        finished = True
+#def one_player()
+
