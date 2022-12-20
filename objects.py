@@ -253,20 +253,16 @@ class game_field():
                                              self.y0 + self.game_field_height / 20 * i, self.game_field_width / 10,
                                              self.game_field_height / 20), 1)
         f1 = pygame.font.Font(None, 72)
-        follow0 = f1.render("TOP", 1, (255, 255, 255))
-        screen.blit(follow0, (540, 50))
-        resultat = f1.render(str(top_score), 1, (255, 255, 255))
-        screen.blit(resultat, (575, 100))
         follow1 = f1.render("SCORE", 1, (255, 255, 255))
-        screen.blit(follow1, (510, 200))
+        screen.blit(follow1, (self.game_field_width + self.x0 + 100, 200))
         ochki = f1.render(str(self.score), 1, (255, 255, 255))
-        screen.blit(ochki, (580, 250))
+        screen.blit(ochki, (self.game_field_width + self.x0 + 150, 250))
         follow2 = f1.render("NEXT", 1, (255, 255, 255))
-        screen.blit(follow2, (525, 350))
+        screen.blit(follow2, (self.game_field_width + self.x0 + 100, 350))
         follow3 = f1.render("LEVEL", 1, (255, 255, 255))
-        screen.blit(follow3, (520, 700))
+        screen.blit(follow3, (self.game_field_width + self.x0 + 100, 700))
         uroven = f1.render(str(self.level), 1, (255, 255, 255))
-        screen.blit(uroven, (530, 750))
+        screen.blit(uroven, (self.game_field_width + self.x0 + 150, 750))
 
 
     def burn_filled_rows(self):
