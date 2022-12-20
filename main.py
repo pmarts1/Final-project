@@ -302,6 +302,7 @@ while not finished:
         f2.new_figure()
         g2 = game_field(900, 0, 500)
         while not gameOver and not finished:
+
             frame += 1
             clock.tick(FPS)
             screen.fill(BLACK)
