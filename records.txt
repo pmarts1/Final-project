@@ -1,2 +1,10 @@
-1927 qrgqreugqer
-843 qpfqgeqrgqegr
+12 a
+42 b
+53 c
+23 d
+53 e
+46 f
+75 g 
+34 h
+23 i
+11 j
